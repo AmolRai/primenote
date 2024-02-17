@@ -20,10 +20,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.get("/hello", (req, res) => {
-  res.send("Hello World");
-});
-
 // import
 import noteRouter from "./routes/note.route.js";
 import userRouter from "./routes/user.route.js";
