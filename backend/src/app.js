@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.get("/temp", (req, res) => {
+app.get("/hello", (req, res) => {
   res.send("Hello World");
 });
 
