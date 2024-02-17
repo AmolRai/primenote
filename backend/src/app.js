@@ -3,19 +3,12 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();
 
-// const corsOptions = {
-//   origin: "http://localhost:3000",
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   credentials: true,
-//   optionsSuccessStatus: 204,
-// };
-
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
 app.use(cors(corsOptions));
 
@@ -27,16 +20,16 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
+app.get("/temp", (req, res) => {
+  res.send("Hello World");
+});
+
 // import
 import noteRouter from "./routes/note.route.js";
 import userRouter from "./routes/user.route.js";
 
-app.get("/temp", (req, res) => {
-  res.send("Hello Server");
-});
+// app.use("/api/v1/notes", noteRouter);
 
-app.use("/api/v1/notes", noteRouter);
-
-app.use("/api/v1/users", userRouter);
+// app.use("/api/v1/users", userRouter);
 
 export { app };
