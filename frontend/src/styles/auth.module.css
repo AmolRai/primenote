@@ -1,0 +1,49 @@
+.auth {
+  height: 100vh;
+  width: 100%;
+  background-color: #1d2327;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.auth input {
+  border: solid 1px #50575e;
+  border-radius: 4px;
+  color: #2c3338;
+  height: 45px;
+  padding: 13px 15px;
+  margin: 8px auto 0;
+  max-width: 320px;
+  width: 100%;
+  font-size: 16px;
+  background-color: transparent;
+  color: white;
+  outline: none;
+}
+
+.auth input:focus {
+  border: 1px solid #2592ff;
+}
+
+.authBtn {
+  width: 20rem;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: #2592ff;
+  font-size: 1rem;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.fileLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+  border-radius: 5px;
+}

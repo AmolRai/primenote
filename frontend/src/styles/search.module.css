@@ -1,0 +1,22 @@
+.search {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  border-bottom: 0.1px solid #5e5e5ea2;
+  padding-bottom: 1rem;
+}
+
+.searchBar {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  width: 100%;
+  outline: none;
+  font-weight: 500;
+}
+
+.searchBar::placeholder {
+  color: rgb(187, 187, 187);
+}
