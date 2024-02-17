@@ -31,6 +31,10 @@ app.use(cookieParser());
 import noteRouter from "./routes/note.route.js";
 import userRouter from "./routes/user.route.js";
 
+app.get("/", (req, res) => {
+  res.send("Hello Server");
+});
+
 app.use("/api/v1/notes", noteRouter);
 
 app.use("/api/v1/users", userRouter);
