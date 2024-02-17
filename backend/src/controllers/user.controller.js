@@ -23,21 +23,21 @@ const register = async (req, res) => {
       throw new ApiError(409, "User with username already exists");
     }
 
-    const avatarLocalPath = req.files?.avatar[0]?.path;
+    // const avatarLocalPath = req.files?.avatar[0]?.path;
 
-    if (!avatarLocalPath) {
-      throw new ApiError(400, "Avatar is required");
-    }
+    // if (!avatarLocalPath) {
+    //   throw new ApiError(400, "Avatar is required");
+    // }
 
-    const avatar = await uploadOnCloudinary(avatarLocalPath);
-    if (!avatar) {
-      throw new ApiError(400, "All file is required");
-    }
+    // const avatar = await uploadOnCloudinary(avatarLocalPath);
+    // if (!avatar) {
+    //   throw new ApiError(400, "All file is required");
+    // }
 
     const user = await User.create({
       fullName,
       password,
-      avatar: avatar.url,
+      // avatar: avatar.url,
       username: username.toLowerCase(),
     });
 
