@@ -28,8 +28,8 @@ app.get("/temp", (req, res) => {
 import noteRouter from "./routes/note.route.js";
 import userRouter from "./routes/user.route.js";
 
-// app.use("/api/v1/notes", noteRouter);
+app.use("/api/v1/notes", noteRouter);
 
-// app.use("/api/v1/users", userRouter);
+app.use("/api/v1/users", userRouter);
 
 export { app };
