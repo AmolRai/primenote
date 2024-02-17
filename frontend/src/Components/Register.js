@@ -24,12 +24,18 @@ const Register = () => {
     form.append("username", username);
     form.append("password", password);
     form.append("fullName", fullName);
-    form.append("avatar", avatar);
+    // form.append("avatar", avatar);
 
-    if (!username || !password || !fullName || !avatar) {
+    // if (!username || !password || !fullName || !avatar) {
+    //   setIsLoading(false);
+    //   return;
+    // }
+
+    if (!username || !password || !fullName) {
       setIsLoading(false);
       return;
     }
+
     try {
       const response = await fetch(
         "https://notes-app-indol-kappa.vercel.app/api/v1/users/register",

@@ -13,6 +13,8 @@ const register = async (req, res) => {
   try {
     const { username, password, fullName } = req.body;
 
+    console.log("req.body:", req.body);
+
     if ([username, password, fullName].some((field) => field?.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
@@ -38,7 +40,7 @@ const register = async (req, res) => {
       fullName,
       password,
       // avatar: avatar.url,
-      username: username.toLowerCase(),
+      username: username?.toLowerCase(),
     });
 
     const accessToken = await user.generateAccessToken();
