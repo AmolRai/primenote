@@ -5,7 +5,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 
 const options = {
-  httpOnly: false,
+  httpOnly: true,
   secure: true,
 };
 
