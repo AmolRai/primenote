@@ -33,3 +33,5 @@ app.use("/api/v1/notes", noteRouter);
 app.use("/api/v1/users", userRouter);
 
 export { app };
+
+// "dev": "node -r dotenv/config --experimental-json-modules src/index.js"
