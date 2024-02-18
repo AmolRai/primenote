@@ -10,34 +10,6 @@ const options = {
   sameSite: "none",
 };
 
-const getDetails = async (req, res) => {
-  const { fullName, password, username } = req.body;
-
-  console.log("details req.body:", req.body);
-
-  const user = await User.create({
-    fullName,
-    password,
-    // avatar: avatar.url,
-    username: username?.toLowerCase(),
-  });
-
-  const accessToken = await user.generateAccessToken();
-  const refreshToken = await user.generateRefreshToken();
-
-  const userObj = {
-    user,
-    accessToken,
-    refreshToken,
-  };
-
-  return res
-    .status(201)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
-    .json(new ApiResponse(201, userObj, "User register successfully"));
-};
-
 const register = async (req, res) => {
   try {
     const { username, password, fullName } = req.body;
@@ -173,4 +145,4 @@ const getUser = async (req, res) => {
   }
 };
 
-export { register, login, logout, getUser, getDetails };
+export { register, login, logout, getUser };
