@@ -26,10 +26,12 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(obj),
+        withCredentials: true,
         credentials: "include",
       }
     );
     const json = await response.json();
+    console.log("documen.cookie:", document.cookie);
     console.log("details json:", json);
   };
 
