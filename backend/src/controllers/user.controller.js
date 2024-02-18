@@ -14,6 +14,8 @@ const register = async (req, res) => {
   try {
     const { username, password, fullName } = req.body;
 
+    console.log("register body:", req.body);
+
     if ([username, password, fullName].some((field) => field?.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
@@ -69,9 +71,6 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-
-    console.log("login data:", req.body);
-    return;
 
     if (!username || !password) {
       throw new ApiError(400, "Username and password is required");
