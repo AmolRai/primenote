@@ -9,18 +9,32 @@ const options = {
   secure: true,
 };
 
-const getDetails = (req, res) => {
-  const { name, age } = req.body;
-  const obj = {
-    name,
-    age,
+const getDetails = async (req, res) => {
+  const { fullName, password, username } = req.body;
+
+  console.log("details req.body:", req.body);
+
+  const user = await User.create({
+    fullName,
+    password,
+    // avatar: avatar.url,
+    username: username?.toLowerCase(),
+  });
+
+  const accessToken = await user.generateAccessToken();
+  const refreshToken = await user.generateRefreshToken();
+
+  const userObj = {
+    user,
+    accessToken,
+    refreshToken,
   };
 
-  console.log(name, age);
-
   return res
-    .status(200)
-    .json(new ApiResponse(200, obj, "name and age success"));
+    .status(201)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(new ApiResponse(201, userObj, "User register successfully"));
 };
 
 const register = async (req, res) => {

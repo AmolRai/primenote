@@ -13,18 +13,20 @@ const Login = () => {
 
   const getDetails = async () => {
     const obj = {
-      name: "Amol Rai",
-      age: 22,
+      fullName: "Amol Rai",
+      password: 22,
+      username: "amol",
     };
     const response = await fetch(
-      // "https://notes-app-indol-kappa.vercel.app/api/v1/users/details"
-      "http://localhost:4000/api/v1/users/details",
+      "https://notes-app-indol-kappa.vercel.app/api/v1/users/details",
+      // "http://localhost:4000/api/v1/users/details",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(obj),
+        credentials: "include",
       }
     );
     const json = await response.json();
