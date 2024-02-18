@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 const options = {
   httpOnly: true,
   secure: true,
-  sameSite: "none",
+  // sameSite: "none",
 };
 
 const getDetails = async (req, res) => {

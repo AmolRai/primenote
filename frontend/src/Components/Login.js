@@ -19,14 +19,12 @@ const Login = () => {
     };
     const response = await fetch(
       "https://notes-app-indol-kappa.vercel.app/api/v1/users/details",
-      // "http://localhost:4000/api/v1/users/details",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(obj),
-        withCredentials: true,
         credentials: "include",
       }
     );
