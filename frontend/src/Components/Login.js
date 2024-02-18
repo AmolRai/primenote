@@ -11,6 +11,30 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [authCookie, setAuthCookie] = useState(document.cookie);
 
+  const getDetails = async () => {
+    const obj = {
+      name: "Amol Rai",
+      age: 22,
+    };
+    const response = await fetch(
+      // "https://notes-app-indol-kappa.vercel.app/api/v1/users/details"
+      "http://localhost:4000/api/v1/users/details",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      }
+    );
+    const json = await response.json();
+    console.log("details json:", json);
+  };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
+
   useEffect(() => {
     if (authCookie) {
       navigate("/");

@@ -9,11 +9,23 @@ const options = {
   secure: true,
 };
 
+const getDetails = (req, res) => {
+  const { name, age } = req.body;
+  const obj = {
+    name,
+    age,
+  };
+
+  console.log(name, age);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, obj, "name and age success"));
+};
+
 const register = async (req, res) => {
   try {
     const { username, password, fullName } = req.body;
-
-    console.log("req.body:", req.body);
 
     if ([username, password, fullName].some((field) => field?.trim() === "")) {
       throw new ApiError(400, "All fields are required");
@@ -146,4 +158,4 @@ const getUser = async (req, res) => {
   }
 };
 
-export { register, login, logout, getUser };
+export { register, login, logout, getUser, getDetails };
