@@ -24,14 +24,9 @@ const Register = () => {
     form.append("username", username);
     form.append("password", password);
     form.append("fullName", fullName);
-    // form.append("avatar", avatar);
+    form.append("avatar", avatar);
 
-    // if (!username || !password || !fullName || !avatar) {
-    //   setIsLoading(false);
-    //   return;
-    // }
-
-    if (!username || !password || !fullName) {
+    if (!username || !password || !fullName || !avatar) {
       setIsLoading(false);
       return;
     }
@@ -39,6 +34,7 @@ const Register = () => {
     try {
       const response = await fetch(
         "https://notes-app-indol-kappa.vercel.app/api/v1/users/register",
+        // "http://localhost:4000/api/v1/users/register",
         {
           method: "POST",
           credentials: "include",
@@ -46,6 +42,7 @@ const Register = () => {
         }
       );
       const json = await response.json();
+      console.log("register json:", json);
       setAuthCookie(document.cookie);
       setIsLoading(false);
     } catch (error) {

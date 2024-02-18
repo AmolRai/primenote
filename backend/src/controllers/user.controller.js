@@ -24,22 +24,22 @@ const register = async (req, res) => {
       throw new ApiError(409, "User with username already exists");
     }
 
-    // const avatarLocalPath = req.files?.avatar[0]?.path;
+    const avatarLocalPath = req.files?.avatar[0]?.path;
 
-    // if (!avatarLocalPath) {
-    //   throw new ApiError(400, "Avatar is required");
-    // }
+    if (!avatarLocalPath) {
+      throw new ApiError(400, "Avatar is required");
+    }
 
-    // const avatar = await uploadOnCloudinary(avatarLocalPath);
-    // if (!avatar) {
-    //   throw new ApiError(400, "All file is required");
-    // }
+    const avatar = await uploadOnCloudinary(avatarLocalPath);
+    if (!avatar) {
+      throw new ApiError(400, "All file is required");
+    }
 
     const user = await User.create({
       fullName,
       password,
-      // avatar: avatar.url,
-      username: username?.toLowerCase(),
+      avatar: avatar.url,
+      username: username.toLowerCase(),
     });
 
     const accessToken = await user.generateAccessToken();
@@ -69,6 +69,9 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
+
+    console.log("login data:", req.body);
+    return;
 
     if (!username || !password) {
       throw new ApiError(400, "Username and password is required");
