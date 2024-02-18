@@ -31,7 +31,6 @@ const Login = () => {
       }
     );
     const json = await response.json();
-    console.log("documen.cookie:", document.cookie);
     console.log("details json:", json);
   };
 
