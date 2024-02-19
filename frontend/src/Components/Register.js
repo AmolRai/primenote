@@ -34,6 +34,7 @@ const Register = () => {
     try {
       const response = await fetch(
         "https://notes-app-indol-kappa.vercel.app/api/v1/users/register",
+        // "http://localhost:4000/api/v1/users/register",
         {
           method: "POST",
           credentials: "include",

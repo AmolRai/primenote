@@ -14,8 +14,6 @@ const register = async (req, res) => {
   try {
     const { username, password, fullName } = req.body;
 
-    console.log("register body:", req.body);
-
     if ([username, password, fullName].some((field) => field?.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
@@ -26,7 +24,7 @@ const register = async (req, res) => {
       throw new ApiError(409, "User with username already exists");
     }
 
-    const avatarLocalPath = req.files?.avatar[0]?.path;
+    const avatarLocalPath = req.files?.avatar[0];
 
     if (!avatarLocalPath) {
       throw new ApiError(400, "Avatar is required");
@@ -34,7 +32,7 @@ const register = async (req, res) => {
 
     const avatar = await uploadOnCloudinary(avatarLocalPath);
     if (!avatar) {
-      throw new ApiError(400, "All file is required");
+      throw new ApiError(400, "Avatar is required");
     }
 
     const user = await User.create({
