@@ -3,6 +3,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  document.cookie =
+    "username=Duke Martin;expires=Sun, 20 Aug 2030 12:00:00 UTC";
   const login = async (username, password) => {
     if (!username || !password) {
       return;
