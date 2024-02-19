@@ -12,6 +12,7 @@ const Login = () => {
   const [authCookie, setAuthCookie] = useState(document.cookie);
 
   useEffect(() => {
+    console.log("authCookie:", authCookie);
     if (authCookie) {
       navigate("/");
     }

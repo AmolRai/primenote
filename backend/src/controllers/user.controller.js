@@ -44,12 +44,6 @@ const register = async (req, res) => {
       username: username.toLowerCase(),
     });
 
-    const accessToken = await user.generateAccessToken();
-    const refreshToken = await user.generateRefreshToken();
-
-    user.refreshToken = refreshToken;
-    await user.save({ validateBeforeSave: false });
-
     const createdUser = await User.findById(user._id).select("-password");
     if (!createdUser) {
       throw new ApiError(
@@ -60,8 +54,6 @@ const register = async (req, res) => {
 
     return res
       .status(201)
-      .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", refreshToken, options)
       .json(new ApiResponse(201, createdUser, "User register successfully"));
   } catch (err) {
     console.log("Registration Error:", err.message);

@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
       };
       const response = await fetch(
         "https://notes-app-indol-kappa.vercel.app/api/v1/users/login",
+        // "http://localhost:4000/api/v1/users/login",
         {
           method: "POST",
           headers: {
@@ -28,10 +29,9 @@ export const AuthProvider = ({ children }) => {
       );
 
       const json = await response.json();
-      return true;
+      console.log("login json:", json);
     } catch (err) {
       console.log("Error while login the user", err.message);
-      return false;
     }
   };
 
@@ -48,10 +48,9 @@ export const AuthProvider = ({ children }) => {
         }
       );
       const json = await response.json();
-      return true;
+      console.log("logout json:", json);
     } catch (error) {
       console.log("Error while logout the user", error.message);
-      return false;
     }
   };
 
