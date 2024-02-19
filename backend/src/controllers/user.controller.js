@@ -5,10 +5,11 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 
 const options = {
-  expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // Set expiry to 24 hours from now
-  // httpOnly: true,
+  maxAge: 24 * 60 * 60 * 1000,
   secure: true,
   sameSite: "none",
+  httpOnly: true,
+  path: "/",
 };
 
 const register = async (req, res) => {
