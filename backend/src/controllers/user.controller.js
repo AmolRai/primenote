@@ -78,7 +78,7 @@ const login = async (req, res) => {
       throw new ApiError(401, "Invalid user credentials");
     }
 
-    const accessToken = await user.generateAccessToken();
+    const token = await user.generateAccessToken();
     const refreshToken = await user.generateRefreshToken();
 
     user.refreshToken = refreshToken;
@@ -91,9 +91,16 @@ const login = async (req, res) => {
       throw new ApiError(404, "User doesn't exists");
     }
 
+    res.cookie("jwt", token, {
+      expires: new Date(
+        Date.now() + process.env.JWT_COOKIE_EXPIR_IN * 24 * 60 * 60 * 1000
+      ),
+      secure: true, // It is for https not for http
+      httpOnly: true,
+    });
+
     return res
       .status(200)
-      .cookie("token", accessToken, options)
       .json(new ApiResponse(200, loggedInUser, "Login Successful"));
   } catch (err) {
     console.log("Login Error:", err.message);
