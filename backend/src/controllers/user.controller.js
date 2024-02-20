@@ -61,6 +61,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  console.log("calling login");
   try {
     const { username, password } = req.body;
 
@@ -93,12 +94,12 @@ const login = async (req, res) => {
 
     const cookieOptions = {
       maxAge: 30 * 24 * 60 * 60 * 1000,
-      // secure: true, // It is for https not for http
+      secure: true, // It is for https not for http
       sameSite: "none",
+      http: true,
     };
 
     return res
-      .cookie("cookieName", "cookieValue")
       .status(200)
       .json(new ApiResponse(200, loggedInUser, "Login Successful"));
   } catch (err) {
