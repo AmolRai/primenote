@@ -4,6 +4,12 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 
+const options = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None",
+};
+
 const register = async (req, res) => {
   try {
     const { username, password, fullName } = req.body;
@@ -103,8 +109,7 @@ const logout = async (req, res) => {
 
     return res
       .status(200)
-      .clearCookie("accessToken", options)
-      .clearCookie("refreshToken", options)
+      .clearCookie("token", options)
       .json(new ApiResponse(200, "User logged out successfully"));
   } catch (err) {
     console.log("Logout Error:", err.message);

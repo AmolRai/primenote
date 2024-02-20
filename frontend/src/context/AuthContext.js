@@ -30,7 +30,6 @@ export const AuthProvider = ({ children }) => {
 
       const json = await response.json();
 
-      console.log("login json:", json);
       setCookie("token", json.data.accessToken, 1);
     } catch (err) {
       console.log("Error while login the user", err.message);
@@ -48,6 +47,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await fetch(
         "https://notes-app-indol-kappa.vercel.app/api/v1/users/logout",
+        // "http://localhost:4000/api/v1/users/logout",
         {
           method: "POST",
           headers: {
