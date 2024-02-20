@@ -5,9 +5,9 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 
 const options = {
-  maxAge: 24 * 60 * 60 * 1000, // Expiry time in milliseconds (1 day)
-  secure: true, // Ensures cookies are only sent over HTTPS
-  sameSite: "None", // Allows cross-site usage
+  // sameSite: "none",
+  httpOnly: true,
+  secure: true,
 };
 
 const register = async (req, res) => {
@@ -134,4 +134,14 @@ const getUser = async (req, res) => {
   }
 };
 
-export { register, login, logout, getUser };
+const getCookie = (req, res) => {
+  res.send(req.cookies);
+};
+
+const setCookie = (req, res) => {
+  res.cookie("cokkieName", 123, options);
+  console.log("set cookie req.cookies:", req.cookies);
+  res.json(new ApiResponse(200, {}, "Cookie Added"));
+};
+
+export { register, login, logout, getUser, getCookie, setCookie };
