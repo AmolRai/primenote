@@ -92,7 +92,7 @@ const login = async (req, res) => {
     }
 
     res.cookie("jwt", token, {
-      expires: new Date(
+      maxAge: new Date(
         Date.now() + process.env.JWT_COOKIE_EXPIR_IN * 24 * 60 * 60 * 1000
       ),
       secure: true, // It is for https not for http
