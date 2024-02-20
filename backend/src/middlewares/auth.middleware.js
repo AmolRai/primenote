@@ -11,6 +11,8 @@ const verifyJWT = async (req, res, next) => {
       throw new ApiError("401", "Unauthorized request");
     }
 
+    console.log("Token:", token);
+
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
     const user = await User.findById(decodedToken?.id);
