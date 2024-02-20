@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 const options = {
   maxAge: 24 * 60 * 60 * 1000,
   secure: true,
-  sameSite: "none",
+  sameSite: "None",
 };
 
 const register = async (req, res) => {
@@ -91,8 +91,8 @@ const login = async (req, res) => {
 
     return res
       .status(200)
-      .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", refreshToken, options)
+      .cookie("first", accessToken, options)
+      .cookie("second", refreshToken, options)
       .json(new ApiResponse(200, loggedInUser, "Login Successful"));
   } catch (err) {
     console.log("Login Error:", err.message);
