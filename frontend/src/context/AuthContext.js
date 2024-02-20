@@ -13,8 +13,8 @@ export const AuthProvider = ({ children }) => {
         password: password,
       };
       const response = await fetch(
-        "https://notes-app-indol-kappa.vercel.app/api/v1/users/login",
-        // "http://localhost:4000/api/v1/users/login",
+        // "https://notes-app-indol-kappa.vercel.app/api/v1/users/login",
+        "http://localhost:4000/api/v1/users/login",
         {
           method: "POST",
           headers: {
@@ -41,16 +41,16 @@ export const AuthProvider = ({ children }) => {
     const d = new Date();
     d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
     let expires = "expires=" + d.toUTCString();
-    // Do not set the Secure attribute
+    // Set SameSite attribute to None for cross-site requests
     document.cookie =
-      cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=None";
+      cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=None;Secure";
   }
 
   const logout = async () => {
     try {
       const response = await fetch(
-        "https://notes-app-indol-kappa.vercel.app/api/v1/users/logout",
-        // "http://localhost:4000/api/v1/users/logout",
+        // "https://notes-app-indol-kappa.vercel.app/api/v1/users/logout",
+        "http://localhost:4000/api/v1/users/logout",
         {
           method: "POST",
           headers: {
