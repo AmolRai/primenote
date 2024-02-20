@@ -89,8 +89,17 @@ const login = async (req, res) => {
       throw new ApiError(404, "User doesn't exists");
     }
 
+    const expirationDate = new Date();
+    expirationDate.setTime(expirationDate.getTime() + 24 * 60 * 60 * 1000);
+    const expires = expirationDate.toUTCString();
+    const cookie = `token=encryptedstring; HttpOnly; Expires=${expires}; Path=/; SameSite=None; Secure`;
+
     return res
       .status(200)
+      .set({
+        "Set-Cookie": cookie,
+        "Access-Control-Allow-Credentials": "true",
+      })
       .json(
         new ApiResponse(200, { loggedInUser, accessToken }, "Login Successful")
       );

@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 
       const json = await response.json();
 
-      setCookie("token", json.data.accessToken, 1);
+      // setCookie("token", json.data.accessToken, 1);
     } catch (err) {
       console.log("Error while login the user", err.message);
     }
