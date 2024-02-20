@@ -41,9 +41,9 @@ export const AuthProvider = ({ children }) => {
     const d = new Date();
     d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
     let expires = "expires=" + d.toUTCString();
-    // Set SameSite attribute to None for cross-site requests
+    // Do not set the Secure attribute
     document.cookie =
-      cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=None;Secure";
+      cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=None";
   }
 
   const logout = async () => {
