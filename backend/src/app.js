@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cookieParser("skldjfsldfj@#$#SDsdf"));
+app.use(cookieParser());
 
 // import
 import noteRouter from "./routes/note.route.js";
