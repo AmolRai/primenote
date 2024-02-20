@@ -4,11 +4,12 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 
-const options = {
-  maxAge: 24 * 60 * 60 * 1000,
-  secure: true,
-  sameSite: "None",
-};
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
 const register = async (req, res) => {
   try {
@@ -91,8 +92,8 @@ const login = async (req, res) => {
 
     return res
       .status(200)
-      .cookie("first", accessToken, options)
-      .cookie("second", refreshToken, options)
+      .cookie("token", accessToken)
+      .cookie("_token", refreshToken)
       .json(new ApiResponse(200, loggedInUser, "Login Successful"));
   } catch (err) {
     console.log("Login Error:", err.message);
