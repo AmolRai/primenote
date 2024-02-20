@@ -92,7 +92,7 @@ const login = async (req, res) => {
     }
 
     const cookieOptions = {
-      maxAge: process.env.JWT_COOKIE_EXPIR_IN * 24 * 60 * 60 * 1000,
+      maxAge: 90 * 24 * 60 * 60 * 1000,
       secure: true, // It is for https not for http
       httpOnly: true,
     };
