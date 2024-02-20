@@ -11,6 +11,12 @@ function setCookie(cname, cvalue, exdays) {
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
+let options = {
+  maxAge: 1000 * 60 * 15, // would expire after 15 minutes
+  httpOnly: true, // The cookie only accessible by the web server
+  signed: true, // Indicates if the cookie should be signed
+};
+
 const register = async (req, res) => {
   try {
     const { username, password, fullName } = req.body;
@@ -92,8 +98,8 @@ const login = async (req, res) => {
 
     return res
       .status(200)
-      .cookie("tu", accessToken)
-      .cookie("tuv", refreshToken)
+      .cookie("tu", accessToken, options)
+      .cookie("tuv", refreshToken, options)
       .json(new ApiResponse(200, loggedInUser, "Login Successful"));
   } catch (err) {
     console.log("Login Error:", err.message);
