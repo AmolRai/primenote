@@ -92,8 +92,8 @@ const login = async (req, res) => {
 
     return res
       .status(200)
-      .cookie("token", accessToken)
-      .cookie("_token", refreshToken)
+      .cookie("tu", accessToken)
+      .cookie("tuv", refreshToken)
       .json(new ApiResponse(200, loggedInUser, "Login Successful"));
   } catch (err) {
     console.log("Login Error:", err.message);
