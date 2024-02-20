@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
     },
+    token: {
+      type: String,
+    },
     notes: [
       {
         type: mongoose.Schema.Types.ObjectId,

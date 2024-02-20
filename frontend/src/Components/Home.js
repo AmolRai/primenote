@@ -19,36 +19,6 @@ const Home = () => {
   const [singleSelect, setSingleSelect] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!authCookie) {
-      navigate("/login");
-    } else {
-      checkCookie();
-    }
-  }, [authCookie]);
-
-  const checkCookie = async () => {
-    const accessToken = authCookie
-      ?.split(";")
-      ?.find((cookie) => cookie.trim().startsWith("accessToken="))
-      ?.split("=")[1];
-
-    const refreshToken = authCookie
-      ?.split(";")
-      ?.find((cookie) => cookie.trim().startsWith("refreshToken="))
-      ?.split("=")[1];
-
-    if (!accessToken || !refreshToken) {
-      document.cookie =
-        "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie =
-        "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      setAuthCookie(document.cookie);
-    } else {
-      fetchAllNotes();
-    }
-  };
-
   const saveNotesInDB = async (noteTitle, isEdit) => {
     if (isEdit) {
       handleUpdateNote(myNote?._id, noteTitle);

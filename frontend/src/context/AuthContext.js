@@ -30,43 +30,12 @@ export const AuthProvider = ({ children }) => {
 
       const json = await response.json();
       console.log(json);
-      setCookie();
+      localStorage.setItem("token", json.data.loggedInUser.token);
+      localStorage.setItem("id", json.data.loggedInUser._id);
     } catch (err) {
       console.log("Error while login the user", err.message);
     }
   };
-
-  async function setCookie() {
-    await fetch(
-      // "https://notes-app-indol-kappa.vercel.app/api/v1/users/set-cookie",
-      "http://localhost:4000/api/v1/users/set-cookie",
-      {
-        credentials: "include",
-      }
-    );
-    getCookie();
-  }
-
-  async function getCookie() {
-    const data = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/users/get-cookie",
-      // "http://localhost:4000/api/v1/users/get-cookie",
-      {
-        credentials: "include",
-      }
-    );
-    const json = await data.json();
-    console.log("cookie json:", json);
-  }
-
-  // function setCookie(cname, cvalue, exdays) {
-  //   const d = new Date();
-  //   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  //   let expires = "expires=" + d.toUTCString();
-  //   // Set SameSite attribute to None for cross-site requests
-  //   document.cookie =
-  //     cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=None;Secure";
-  // }
 
   const logout = async () => {
     try {

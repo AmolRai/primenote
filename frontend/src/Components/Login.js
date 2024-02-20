@@ -9,14 +9,6 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [authCookie, setAuthCookie] = useState(document.cookie);
-
-  useEffect(() => {
-    console.log("authCookie:", authCookie);
-    if (authCookie) {
-      navigate("/");
-    }
-  }, [authCookie]);
 
   const handleLogin = async () => {
     setIsLoading(true);
@@ -24,7 +16,11 @@ const Login = () => {
       setIsLoading(false);
     }, 5000);
     await login(username, password);
-    setAuthCookie(document.cookie);
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
     setIsLoading(false);
   };
 

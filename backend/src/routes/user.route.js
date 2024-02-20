@@ -4,8 +4,6 @@ import {
   logout,
   register,
   getUser,
-  getCookie,
-  setCookie,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -18,10 +16,6 @@ router.route("/login").post(login);
 
 router.route("/logout").post(verifyJWT, logout);
 
-router.route("/getUser").get(verifyJWT, getUser);
-
-router.route("/get-cookie").get(getCookie);
-
-router.route("/set-cookie").get(setCookie);
+router.route("/getUser").post(getUser);
 
 export default router;

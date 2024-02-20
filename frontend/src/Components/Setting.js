@@ -9,11 +9,17 @@ const Setting = ({ closeMenu }) => {
   const [userData, setUserData] = useState(null);
 
   const getUser = async () => {
+    const id = localStorage.getItem("id");
+    console.log("get user id:", typeof id);
     const response = await fetch(
       // `https://notes-app-indol-kappa.vercel.app/api/v1/users/getUser`,
       `http://localhost:4000/api/v1/users/getUser`,
       {
-        credentials: "include",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
       }
     );
     const json = await response.json();

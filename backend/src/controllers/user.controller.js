@@ -4,12 +4,6 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 
-const options = {
-  sameSite: "none",
-  httpOnly: true,
-  secure: true,
-};
-
 const register = async (req, res) => {
   try {
     const { username, password, fullName } = req.body;
@@ -80,6 +74,7 @@ const login = async (req, res) => {
     const refreshToken = await user.generateRefreshToken();
 
     user.refreshToken = refreshToken;
+    user.token = token;
     await user.save({ validateBeforeSave: false });
 
     const loggedInUser = await User.findById(user.id).select(
@@ -107,7 +102,7 @@ const logout = async (req, res) => {
 
     return res
       .status(200)
-      .clearCookie("token", options)
+      .clearCookie("token")
       .json(new ApiResponse(200, "User logged out successfully"));
   } catch (err) {
     console.log("Logout Error:", err.message);
@@ -116,7 +111,9 @@ const logout = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const user = req.user;
+    const { id } = req.body;
+
+    const user = await User.findById(id);
 
     if (!user) {
       throw new ApiError(404, "User doesn't exists");
@@ -134,15 +131,4 @@ const getUser = async (req, res) => {
   }
 };
 
-const getCookie = (req, res) => {
-  res.send(req.cookies);
-};
-
-const setCookie = (req, res) => {
-  console.log("setting cookie");
-  res.cookie("cokkieName", 123, options);
-  console.log("set cookie req.cookies:", req.cookies);
-  res.json(new ApiResponse(200, {}, "Cookie Added"));
-};
-
-export { register, login, logout, getUser, getCookie, setCookie };
+export { register, login, logout, getUser };
