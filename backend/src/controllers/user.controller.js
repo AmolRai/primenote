@@ -5,7 +5,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 
 const options = {
-  // sameSite: "none",
+  sameSite: "none",
   httpOnly: true,
   secure: true,
 };
@@ -139,6 +139,7 @@ const getCookie = (req, res) => {
 };
 
 const setCookie = (req, res) => {
+  console.log("setting cookie");
   res.cookie("cokkieName", 123, options);
   console.log("set cookie req.cookies:", req.cookies);
   res.json(new ApiResponse(200, {}, "Cookie Added"));

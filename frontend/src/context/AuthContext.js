@@ -37,9 +37,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   async function setCookie() {
-    // "https://notes-app-indol-kappa.vercel.app/api/v1/users/login",
     await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/users/set-cookie",
+      // "https://notes-app-indol-kappa.vercel.app/api/v1/users/set-cookie",
+      "http://localhost:4000/api/v1/users/set-cookie",
       {
         credentials: "include",
       }
@@ -50,6 +50,7 @@ export const AuthProvider = ({ children }) => {
   async function getCookie() {
     const data = await fetch(
       "https://notes-app-indol-kappa.vercel.app/api/v1/users/get-cookie",
+      // "http://localhost:4000/api/v1/users/get-cookie",
       {
         credentials: "include",
       }
