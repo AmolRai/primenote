@@ -95,6 +95,7 @@ const login = async (req, res) => {
       maxAge: 90 * 24 * 60 * 60 * 1000,
       secure: true, // It is for https not for http
       httpOnly: true,
+      sameSite: "None",
     };
 
     res.cookie("jwt", token, cookieOptions);
