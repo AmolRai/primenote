@@ -10,8 +10,8 @@ const Setting = ({ closeMenu }) => {
 
   const getUser = async () => {
     const response = await fetch(
-      `https://notes-app-indol-kappa.vercel.app/api/v1/users/getUser`,
-      // `http://localhost:4000/api/v1/users/getUser`,
+      // `https://notes-app-indol-kappa.vercel.app/api/v1/users/getUser`,
+      `http://localhost:4000/api/v1/users/getUser`,
       {
         credentials: "include",
       }

@@ -59,7 +59,6 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  console.log("calling login");
   try {
     const { username, password } = req.body;
 
