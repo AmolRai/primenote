@@ -92,16 +92,9 @@ const login = async (req, res) => {
       throw new ApiError(404, "User doesn't exists");
     }
 
-    const cookieOptions = {
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      secure: true, // It is for https not for http
-      sameSite: "none",
-      http: true,
-    };
-
     return res
       .status(200)
-      .json(new ApiResponse(200, loggedInUser, "Login Successful"));
+      .json(new ApiResponse(200, { loggedInUser, token }, "Login Successful"));
   } catch (err) {
     console.log("Login Error:", err.message);
   }
