@@ -5,8 +5,11 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 
 const options = {
-  secure: true,
-  maxAge: 24 * 60 * 60 * 1000,
+  maxAge: 24 * 60 * 60 * 1000, // Expiry time in milliseconds (1 day)
+  secure: true, // Ensures cookies are only sent over HTTPS
+  sameSite: "None", // Allows cross-site usage
+  domain: "https://quicknote-beta.vercel.app/login", // Replace with your domain
+  path: "/login",
 };
 
 const register = async (req, res) => {
