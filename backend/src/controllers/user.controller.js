@@ -92,15 +92,13 @@ const login = async (req, res) => {
     }
 
     const cookieOptions = {
-      maxAge: 90 * 24 * 60 * 60 * 1000,
-      secure: true, // It is for https not for http
-      httpOnly: true,
-      sameSite: "None",
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      // secure: true, // It is for https not for http
+      sameSite: "none",
     };
 
-    res.cookie("jwt", token, cookieOptions);
-
     return res
+      .cookie("cookieName", "cookieValue")
       .status(200)
       .json(new ApiResponse(200, loggedInUser, "Login Successful"));
   } catch (err) {
