@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       const json = await response.json();
+      console.log(json);
 
       // setCookie("token", json.data.accessToken, 1);
     } catch (err) {
