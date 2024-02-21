@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -20,18 +20,13 @@ export const AuthProvider = ({ children }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          // Credentials will be included for same-origin and cross-origin
-          // requests. This is necessary when making requests to a
-          // different domain while using cookies for authentication.
-          credentials: "include",
           body: JSON.stringify(putData),
         }
       );
 
       const json = await response.json();
       console.log(json);
-      localStorage.setItem("token", json.data.loggedInUser.token);
-      localStorage.setItem("id", json.data.loggedInUser._id);
+      localStorage.setItem("token", json.data.token);
     } catch (err) {
       console.log("Error while login the user", err.message);
     }
@@ -39,15 +34,15 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(
         // "https://notes-app-indol-kappa.vercel.app/api/v1/users/logout",
         "http://localhost:4000/api/v1/users/logout",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          credentials: "include",
         }
       );
       const json = await response.json();

@@ -18,4 +18,6 @@ router.route("/logout").post(verifyJWT, logout);
 
 router.route("/getUser").post(getUser);
 
+// protectedRoute
+
 export default router;

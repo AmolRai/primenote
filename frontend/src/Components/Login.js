@@ -17,10 +17,6 @@ const Login = () => {
     }, 5000);
     await login(username, password);
 
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("/");
-    }
     setIsLoading(false);
   };
 

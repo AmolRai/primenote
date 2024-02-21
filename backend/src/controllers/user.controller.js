@@ -74,7 +74,6 @@ const login = async (req, res) => {
     const refreshToken = await user.generateRefreshToken();
 
     user.refreshToken = refreshToken;
-    user.token = token;
     await user.save({ validateBeforeSave: false });
 
     const loggedInUser = await User.findById(user.id).select(
@@ -86,13 +85,14 @@ const login = async (req, res) => {
 
     return res
       .status(200)
-      .json(new ApiResponse(200, { loggedInUser, token }, "Login Successful"));
+      .json(new ApiResponse(200, { token }, "Login Successful"));
   } catch (err) {
     console.log("Login Error:", err.message);
   }
 };
 
 const logout = async (req, res) => {
+  console.log("logout req.user:", req.user);
   try {
     await User.findByIdAndUpdate(
       req.user.id,
