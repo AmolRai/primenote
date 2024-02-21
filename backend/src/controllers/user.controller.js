@@ -92,7 +92,6 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  console.log("logout req.user:", req.user);
   try {
     await User.findByIdAndUpdate(
       req.user.id,
@@ -111,9 +110,7 @@ const logout = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const { id } = req.body;
-
-    const user = await User.findById(id);
+    const user = await User.findById(req.user._id);
 
     if (!user) {
       throw new ApiError(404, "User doesn't exists");

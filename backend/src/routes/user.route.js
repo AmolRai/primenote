@@ -16,7 +16,7 @@ router.route("/login").post(login);
 
 router.route("/logout").post(verifyJWT, logout);
 
-router.route("/getUser").post(getUser);
+router.route("/getUser").post(verifyJWT, getUser);
 
 // protectedRoute
 

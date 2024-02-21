@@ -119,8 +119,6 @@ const deleteNote = async (req, res) => {
     const { id } = req.body;
     const userId = req.user._id;
 
-    console.log("userId:", userId);
-
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $pull: { notes: id } },

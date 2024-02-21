@@ -9,6 +9,8 @@ const Setting = ({ closeMenu }) => {
   const [userData, setUserData] = useState(null);
 
   const getUser = async () => {
+    const token = localStorage.getItem("token");
+
     const response = await fetch(
       // `https://notes-app-indol-kappa.vercel.app/api/v1/users/getUser`,
       `http://localhost:4000/api/v1/users/getUser`,
@@ -16,6 +18,7 @@ const Setting = ({ closeMenu }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
