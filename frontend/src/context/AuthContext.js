@@ -1,10 +1,10 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { CookiesProvider, useCookies } from "react-cookie";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [cookies, setCookie] = useCookies(["user"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
   const login = async (username, password) => {
     if (!username || !password) {
@@ -16,8 +16,8 @@ export const AuthProvider = ({ children }) => {
         password: password,
       };
       const response = await fetch(
-        "https://notes-app-indol-kappa.vercel.app/api/v1/users/login",
-        // "http://localhost:4000/api/v1/users/login",
+        // "https://notes-app-indol-kappa.vercel.app/api/v1/users/login",
+        "http://localhost:4000/api/v1/users/login",
         {
           method: "POST",
           headers: {
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = cookies.token;
       const response = await fetch(
         // "https://notes-app-indol-kappa.vercel.app/api/v1/users/logout",
         "http://localhost:4000/api/v1/users/logout",
@@ -59,6 +59,9 @@ export const AuthProvider = ({ children }) => {
       );
       const json = await response.json();
       console.log("logout json:", json);
+      if (json.statusCode === 200) {
+        removeCookie("token");
+      }
     } catch (error) {
       console.log("Error while logout the user", error.message);
     }

@@ -101,7 +101,6 @@ const logout = async (req, res) => {
 
     return res
       .status(200)
-      .clearCookie("token")
       .json(new ApiResponse(200, "User logged out successfully"));
   } catch (err) {
     console.log("Logout Error:", err.message);

@@ -4,6 +4,7 @@ import styles from "../styles/home.module.css";
 import Dropdown from "./Dropdown";
 import Search from "./Search";
 import Setting from "./Setting";
+import useCustomCookie from "../utils/useCustomCookie";
 
 const Home = () => {
   const [title, setTitle] = useState("");
@@ -15,9 +16,9 @@ const Home = () => {
   const [isMenuSelected, setIsMenuSelected] = useState(false);
   const [pinNote, setPinNote] = useState(null);
   const [settingOpen, setSettingOpen] = useState(false);
-  const [authCookie, setAuthCookie] = useState(document.cookie);
   const [singleSelect, setSingleSelect] = useState(false);
   const navigate = useNavigate();
+  const token = useCustomCookie();
 
   const saveNotesInDB = async (noteTitle, isEdit) => {
     if (isEdit) {
@@ -30,17 +31,20 @@ const Home = () => {
     };
 
     const response = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/addNote",
+      // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/addNote",
+      "http://localhost:4000/api/v1/notes/addNote",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         credentials: "include",
         body: JSON.stringify(postData),
       }
     );
     const json = await response.json();
+    console.log("save notes json:", json);
     fetchAllNotes();
     setTitle("");
   };
@@ -51,7 +55,8 @@ const Home = () => {
       title: noteTitle,
     };
     const response = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateNote",
+      // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateNote",
+      "http://localhost:4000/api/v1/notes/updateNote",
       {
         method: "PUT",
         headers: {
@@ -67,9 +72,12 @@ const Home = () => {
   const fetchAllNotes = async () => {
     try {
       const response = await fetch(
-        "https://notes-app-indol-kappa.vercel.app/api/v1/notes/allNotes",
+        // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/allNotes",
+        "http://localhost:4000/api/v1/notes/allNotes",
         {
-          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const json = await response.json();
@@ -92,11 +100,13 @@ const Home = () => {
   const handleDelete = async (id) => {
     setSingleSelect(false);
     await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/deleteNote",
+      // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/deleteNote",
+      "http://localhost:4000/api/v1/notes/deleteNote",
       {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         credentials: "include",
         body: JSON.stringify({ id }),
@@ -111,7 +121,8 @@ const Home = () => {
       isComplete: !isComplete,
     };
     const response = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateCompleteNote",
+      // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateCompleteNote",
+      "http://localhost:4000/api/v1/notes/updateCompleteNote",
       {
         method: "PUT",
         headers: {
@@ -134,7 +145,8 @@ const Home = () => {
         isPublic: isPublic,
       };
       const response = await fetch(
-        "https://notes-app-indol-kappa.vercel.app/api/v1/notes/publicNote",
+        // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/publicNote",
+        "http://localhost:4000/api/v1/notes/publicNote",
         {
           method: "POST",
           headers: {
@@ -167,7 +179,8 @@ const Home = () => {
       pinNote: !notePin.pinNote,
     };
     const response = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateNote",
+      // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateNote",
+      "http://localhost:4000/api/v1/notes/updateNote",
       {
         method: "PUT",
         headers: {
@@ -220,6 +233,14 @@ const Home = () => {
       setMyNote(allNotes[len - 1]);
     }
   }, [allNotes]);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    } else {
+      fetchAllNotes();
+    }
+  }, []);
 
   return (
     <div className={styles.home} onClick={() => setIsMenuSelected(false)}>

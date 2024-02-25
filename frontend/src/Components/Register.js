@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/auth.module.css";
+import useCustomCookie from "../utils/useCustomCookie";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -9,14 +10,14 @@ const Register = () => {
   const [fullName, setFullName] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [imageURL, setImageURL] = useState("");
-  const [authCookie, setAuthCookie] = useState(document.cookie);
   const [isLoading, setIsLoading] = useState(false);
+  const token = useCustomCookie();
 
   useEffect(() => {
-    if (authCookie) {
+    if (token) {
       navigate("/");
     }
-  }, [authCookie]);
+  }, [token]);
 
   const handleRegister = async () => {
     setIsLoading(true);
@@ -42,7 +43,6 @@ const Register = () => {
       );
       const json = await response.json();
       console.log("register json:", json);
-      setAuthCookie(document.cookie);
       setIsLoading(false);
     } catch (error) {
       console.log("Error while registering the user", error.message);

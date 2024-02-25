@@ -53,7 +53,8 @@ const Dropdown = ({
           e.stopPropagation();
           if (myNote?.isPublic) {
             navigator.clipboard.writeText(
-              `https://notes-app-indol-kappa.vercel.app/viewNote/${myNote?.publicIdentifier}`
+              // `https://notes-app-indol-kappa.vercel.app/viewNote/${myNote?.publicIdentifier}`
+              `http://localhost:4000/api/v1/notes/viewNote/${myNote?.publicIdentifier}`
             );
           }
         }}

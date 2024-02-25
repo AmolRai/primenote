@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/auth.module.css";
+import useCustomCookie from "../utils/useCustomCookie";
 
 const Login = () => {
   const { login } = useAuth();
@@ -9,6 +10,13 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const token = useCustomCookie();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
 
   const handleLogin = async () => {
     setIsLoading(true);
