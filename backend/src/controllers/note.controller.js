@@ -42,7 +42,8 @@ const addNote = async (req, res) => {
 
 const fetchAllNotes = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate("notes");
+    const user = await User.findById(req.user._id).lean().populate("notes");
+
     if (!user) {
       throw new ApiError("404", "User not found");
     }
@@ -123,7 +124,7 @@ const deleteNote = async (req, res) => {
       userId,
       { $pull: { notes: id } },
       { new: true }
-    );
+    ).lean();
 
     if (!updatedUser) {
       throw new ApiError(404, "Error: User Note Delete ");
