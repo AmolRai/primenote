@@ -16,8 +16,8 @@ export const AuthProvider = ({ children }) => {
         password: password,
       };
       const response = await fetch(
-        // "https://notes-app-indol-kappa.vercel.app/api/v1/users/login",
-        "http://localhost:4000/api/v1/users/login",
+        "https://notes-app-indol-kappa.vercel.app/api/v1/users/login",
+        // "http://localhost:4000/api/v1/users/login",
         {
           method: "POST",
           headers: {
@@ -48,8 +48,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const token = cookies.token;
       const response = await fetch(
-        // "https://notes-app-indol-kappa.vercel.app/api/v1/users/logout",
-        "http://localhost:4000/api/v1/users/logout",
+        "https://notes-app-indol-kappa.vercel.app/api/v1/users/logout",
+        // "http://localhost:4000/api/v1/users/logout",
         {
           method: "POST",
           headers: {
