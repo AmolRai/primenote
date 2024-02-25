@@ -31,8 +31,8 @@ const Home = () => {
     };
 
     const response = await fetch(
-      // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/addNote",
-      "http://localhost:4000/api/v1/notes/addNote",
+      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/addNote",
+      // "http://localhost:4000/api/v1/notes/addNote",
       {
         method: "POST",
         headers: {
@@ -56,8 +56,8 @@ const Home = () => {
     };
 
     const response = await fetch(
-      // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateNote",
-      "http://localhost:4000/api/v1/notes/updateNote",
+      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateNote",
+      // "http://localhost:4000/api/v1/notes/updateNote",
       {
         method: "PUT",
         headers: {
@@ -73,8 +73,8 @@ const Home = () => {
   const fetchAllNotes = async () => {
     try {
       const response = await fetch(
-        // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/allNotes",
-        "http://localhost:4000/api/v1/notes/allNotes",
+        "https://notes-app-indol-kappa.vercel.app/api/v1/notes/allNotes",
+        // "http://localhost:4000/api/v1/notes/allNotes",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -126,8 +126,8 @@ const Home = () => {
       isComplete: !isComplete,
     };
     const response = await fetch(
-      // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateCompleteNote",
-      "http://localhost:4000/api/v1/notes/updateCompleteNote",
+      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateCompleteNote",
+      // "http://localhost:4000/api/v1/notes/updateCompleteNote",
       {
         method: "PUT",
         headers: {
