@@ -150,8 +150,8 @@ const Home = () => {
         isPublic: isPublic,
       };
       const response = await fetch(
-        // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/publicNote",
-        "http://localhost:4000/api/v1/notes/publicNote",
+        "https://notes-app-indol-kappa.vercel.app/api/v1/notes/publicNote",
+        // "http://localhost:4000/api/v1/notes/publicNote",
         {
           method: "POST",
           headers: {

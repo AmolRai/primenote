@@ -145,7 +145,6 @@ const deleteNote = async (req, res) => {
 };
 
 const viewNote = async (req, res) => {
-  console.log("viewNote");
   try {
     const { publicIdentifier } = req.params;
     const note = await Note.findOne({ publicIdentifier });
