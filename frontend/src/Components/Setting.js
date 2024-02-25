@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/setting.module.css";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Setting = ({ closeMenu }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const getUser = async () => {
-    const token = localStorage.getItem("token");
+    const token = cookies.token;
 
     const response = await fetch(
-      // `https://notes-app-indol-kappa.vercel.app/api/v1/users/getUser`,
-      `http://localhost:4000/api/v1/users/getUser`,
+      `https://notes-app-indol-kappa.vercel.app/api/v1/users/getUser`,
+      // `http://localhost:4000/api/v1/users/getUser`,
       {
         method: "POST",
         headers: {

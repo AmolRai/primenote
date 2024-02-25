@@ -1,8 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
+import { CookiesProvider, useCookies } from "react-cookie";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [cookies, setCookie] = useCookies(["user"]);
+
   const login = async (username, password) => {
     if (!username || !password) {
       return;
@@ -26,7 +29,16 @@ export const AuthProvider = ({ children }) => {
 
       const json = await response.json();
       console.log(json);
-      localStorage.setItem("token", json.data.token);
+
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 1);
+
+      setCookie("token", json.data.token, {
+        path: "/",
+        expires: expiryDate,
+        secure: true,
+        sameSite: "None",
+      });
     } catch (err) {
       console.log("Error while login the user", err.message);
     }
@@ -36,8 +48,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "https://notes-app-indol-kappa.vercel.app/api/v1/users/logout",
-        // "http://localhost:4000/api/v1/users/logout",
+        // "https://notes-app-indol-kappa.vercel.app/api/v1/users/logout",
+        "http://localhost:4000/api/v1/users/logout",
         {
           method: "POST",
           headers: {
