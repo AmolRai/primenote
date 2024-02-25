@@ -99,9 +99,9 @@ const Home = () => {
 
   const handleDelete = async (id) => {
     setSingleSelect(false);
-    await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/deleteNote",
-      // "http://localhost:4000/api/v1/notes/deleteNote",
+    const response = await fetch(
+      // "https://notes-app-indol-kappa.vercel.app/api/v1/notes/deleteNote",
+      "http://localhost:4000/api/v1/notes/deleteNote",
       {
         method: "DELETE",
         headers: {
@@ -112,6 +112,10 @@ const Home = () => {
         body: JSON.stringify({ id }),
       }
     );
+    // const json = await response.json();
+    // console.log("json:", json);
+    const json = await response.json();
+    console.log("delete json:", json);
     fetchAllNotes();
   };
 

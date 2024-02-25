@@ -132,8 +132,8 @@ const deleteNote = async (req, res) => {
     await Note.deleteOne({ _id: id });
 
     return res
-      .status(204)
-      .json(new ApiResponse(204, {}, "Note deleted successfully"));
+      .status(200)
+      .json(new ApiResponse(200, "Note deleted successfully"));
   } catch (error) {
     if (error.name === "CastError" && error.kind === "ObjectId") {
       return res.status(400).json(new ApiError(400, "Invalid note Id"));
