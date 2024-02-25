@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const PublicNote = () => {
-  const navigate = useNavigate();
+  console.log("PublicNote Component");
   const { publicIdentifier } = useParams();
   const [publicNote, setPublicNote] = useState(null);
 
   const handlePublish = async () => {
     const response = await fetch(
-      `https://notes-app-indol-kappa.vercel.app/api/v1/notes/viewNote/${publicIdentifier}`
-      // `http://localhost:4000/api/v1/notes/viewNote/${publicIdentifier}`
+      // `https://notes-app-indol-kappa.vercel.app/api/v1/notes/viewNote/${publicIdentifier}`
+      `http://localhost:4000/api/v1/notes/viewNote/${publicIdentifier}`
     );
     const json = await response.json();
     setPublicNote(json.data);
