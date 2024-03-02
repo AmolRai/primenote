@@ -27,7 +27,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        "https://notes-app-indol-kappa.vercel.app/api/v1/users/register",
+        "https://primenote-api.vercel.app/api/v1/users/register",
         {
           method: "POST",
           credentials: "include",

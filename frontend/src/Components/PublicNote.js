@@ -7,7 +7,7 @@ const PublicNote = () => {
 
   const handlePublish = async () => {
     const response = await fetch(
-      `https://notes-app-indol-kappa.vercel.app/api/v1/notes/viewNote/${publicIdentifier}`
+      `https://primenote-api.vercel.app/api/v1/notes/viewNote/${publicIdentifier}`
       // `http://localhost:4000/api/v1/notes/viewNote/${publicIdentifier}`
     );
     const json = await response.json();

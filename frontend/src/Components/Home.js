@@ -30,7 +30,7 @@ const Home = () => {
     };
 
     const response = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/addNote",
+      "https://primenote-api.vercel.app/api/v1/notes/addNote",
       // "http://localhost:4000/api/v1/notes/addNote",
       {
         method: "POST",
@@ -54,7 +54,7 @@ const Home = () => {
     };
 
     const response = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateNote",
+      "https://primenote-api.vercel.app/api/v1/notes/updateNote",
       // "http://localhost:4000/api/v1/notes/updateNote",
       {
         method: "PUT",
@@ -74,7 +74,7 @@ const Home = () => {
         setLoading(true);
       }
       const response = await fetch(
-        "https://primenote.vercel.app/api/v1/notes/allNotes",
+        "https://primenote-api.vercel.app/api/v1/notes/allNotes",
         // "http://localhost:4000/api/v1/notes/allNotes",
         {
           headers: {
@@ -105,7 +105,7 @@ const Home = () => {
   const handleDelete = async (id) => {
     setLoading(true);
     const response = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/deleteNote",
+      "https://primenote-api.vercel.app/api/v1/notes/deleteNote",
       // "http://localhost:4000/api/v1/notes/deleteNote",
       {
         method: "DELETE",
@@ -129,7 +129,7 @@ const Home = () => {
       isComplete: !isComplete,
     };
     const response = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateCompleteNote",
+      "https://primenote-api.vercel.app/api/v1/notes/updateCompleteNote",
       // "http://localhost:4000/api/v1/notes/updateCompleteNote",
       {
         method: "PUT",
@@ -155,7 +155,7 @@ const Home = () => {
         isPublic: isPublic,
       };
       const response = await fetch(
-        "https://notes-app-indol-kappa.vercel.app/api/v1/notes/publicNote",
+        "https://primenote-api.vercel.app/api/v1/notes/publicNote",
         // "http://localhost:4000/api/v1/notes/publicNote",
         {
           method: "POST",
@@ -189,7 +189,7 @@ const Home = () => {
       pinNote: !notePin.pinNote,
     };
     const response = await fetch(
-      "https://notes-app-indol-kappa.vercel.app/api/v1/notes/updateNote",
+      "https://primenote-api.vercel.app/api/v1/notes/updateNote",
       // "http://localhost:4000/api/v1/notes/updateNote",
       {
         method: "PUT",

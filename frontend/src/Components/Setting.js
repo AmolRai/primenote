@@ -19,7 +19,7 @@ const Setting = ({ closeMenu }) => {
     }
 
     const response = await fetch(
-      `https://notes-app-indol-kappa.vercel.app/api/v1/users/getUser`,
+      `https://primenote-api.vercel.app/api/v1/users/getUser`,
       // `http://localhost:4000/api/v1/users/getUser`,
       {
         method: "POST",
