@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }) => {
       );
 
       const json = await response.json();
-      console.log(json);
 
       const expiryDate = new Date();
       expiryDate.setDate(expiryDate.getDate() + 1);

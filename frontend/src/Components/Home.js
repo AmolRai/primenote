@@ -71,7 +71,6 @@ const Home = () => {
   const fetchAllNotes = async () => {
     try {
       if (!edit) {
-        console.log("loading", edit);
         setLoading(true);
       }
       const response = await fetch(
@@ -92,8 +91,8 @@ const Home = () => {
 
       if (!myNote) {
         const data = json.data;
-        setMyNote(data[data.length - 1]);
-        setTitle(data[data.length - 1].title);
+        setMyNote(data[0]);
+        setTitle(data[0].title);
       }
       setAllNotes(json.data);
       setFilterNotes(json.data);
