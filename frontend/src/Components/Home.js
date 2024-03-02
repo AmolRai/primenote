@@ -255,7 +255,7 @@ const Home = () => {
 
     let tempTimer = setTimeout(() => {
       handleUpdateNote(myNote?._id, value);
-    }, 500);
+    }, 300);
     setTimer(tempTimer);
   };
 
