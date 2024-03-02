@@ -58,9 +58,10 @@ export const AuthProvider = ({ children }) => {
         }
       );
       const json = await response.json();
-      console.log("logout json:", json);
+
       if (json.statusCode === 200) {
         removeCookie("token");
+        localStorage.clear();
       }
     } catch (error) {
       console.log("Error while logout the user", error.message);

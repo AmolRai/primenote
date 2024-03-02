@@ -5,12 +5,19 @@ import { useNavigate } from "react-router-dom";
 import useCustomCookie from "../utils/useCustomCookie";
 
 const Setting = ({ closeMenu }) => {
+  const [userData, setUserData] = useState(null);
+  const [logoutClick, setLogoutClick] = useState(false);
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);
   const token = useCustomCookie();
 
   const getUser = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setUserData(user);
+      return;
+    }
+
     const response = await fetch(
       `https://notes-app-indol-kappa.vercel.app/api/v1/users/getUser`,
       // `http://localhost:4000/api/v1/users/getUser`,
@@ -23,6 +30,7 @@ const Setting = ({ closeMenu }) => {
       }
     );
     const json = await response.json();
+    localStorage.setItem("user", JSON.stringify(json.data));
     setUserData(json.data);
   };
 
@@ -31,7 +39,9 @@ const Setting = ({ closeMenu }) => {
   }, []);
 
   const handleLogout = async () => {
+    setLogoutClick(true);
     await logout();
+    setLogoutClick(false);
     navigate("/login");
   };
 
@@ -89,6 +99,14 @@ const Setting = ({ closeMenu }) => {
         </div>
         <button className={styles.logout} onClick={handleLogout}>
           Log out
+          {logoutClick && (
+            <div className="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          )}
         </button>
       </div>
     </div>

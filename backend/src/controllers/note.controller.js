@@ -60,7 +60,7 @@ const fetchAllNotes = async (req, res) => {
 
 const updateNote = async (req, res) => {
   const { id, title, pinNote } = req.body;
-
+  console.log("ID:", id);
   try {
     const note = await Note.findByIdAndUpdate(
       id,

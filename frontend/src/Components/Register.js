@@ -11,13 +11,6 @@ const Register = () => {
   const [avatar, setAvatar] = useState(null);
   const [imageURL, setImageURL] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const token = useCustomCookie();
-
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  }, [token]);
 
   const handleRegister = async () => {
     setIsLoading(true);
@@ -42,8 +35,8 @@ const Register = () => {
         }
       );
       const json = await response.json();
-      console.log("register json:", json);
       setIsLoading(false);
+      navigate("/login");
     } catch (error) {
       console.log("Error while registering the user", error.message);
       setIsLoading(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/home.module.css";
 import Dropdown from "./Dropdown";
@@ -16,15 +16,14 @@ const Home = () => {
   const [isMenuSelected, setIsMenuSelected] = useState(false);
   const [pinNote, setPinNote] = useState(null);
   const [settingOpen, setSettingOpen] = useState(false);
-  const [singleSelect, setSingleSelect] = useState(false);
+  const [timer, setTimer] = useState();
+  const [loading, setLoading] = useState(false);
+  const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
   const token = useCustomCookie();
 
-  const saveNotesInDB = async (noteTitle, isEdit) => {
-    if (isEdit) {
-      handleUpdateNote(myNote?._id, noteTitle);
-      return;
-    }
+  const saveNotesInDB = async (noteTitle) => {
+    setLoading(true);
     const postData = {
       title: noteTitle,
       filterNotes: filterNotes,
@@ -44,9 +43,8 @@ const Home = () => {
       }
     );
     const json = await response.json();
-    console.log("save notes json:", json);
+    setLoading(false);
     fetchAllNotes();
-    setTitle("");
   };
 
   const handleUpdateNote = async (id, noteTitle) => {
@@ -72,6 +70,10 @@ const Home = () => {
 
   const fetchAllNotes = async () => {
     try {
+      if (!edit) {
+        console.log("loading", edit);
+        setLoading(true);
+      }
       const response = await fetch(
         "https://notes-app-indol-kappa.vercel.app/api/v1/notes/allNotes",
         // "http://localhost:4000/api/v1/notes/allNotes",
@@ -82,24 +84,27 @@ const Home = () => {
         }
       );
       const json = await response.json();
+      // setEdit(false);
+      setLoading(false);
       if (json.data.length === 0) {
         saveNotesInDB("New Note...", false);
       }
 
-      // if (!myNote) {
-      //   const data = json.data;
-      //   setMyNote(data[0]);
-      //   setTitle(data[0].title);
-      // }
+      if (!myNote) {
+        const data = json.data;
+        setMyNote(data[data.length - 1]);
+        setTitle(data[data.length - 1].title);
+      }
       setAllNotes(json.data);
       setFilterNotes(json.data);
     } catch (error) {
+      setLoading(false);
       console.log("Error while fetching the notes", error.message);
     }
   };
 
   const handleDelete = async (id) => {
-    setSingleSelect(false);
+    setLoading(true);
     const response = await fetch(
       "https://notes-app-indol-kappa.vercel.app/api/v1/notes/deleteNote",
       // "http://localhost:4000/api/v1/notes/deleteNote",
@@ -113,14 +118,13 @@ const Home = () => {
         body: JSON.stringify({ id }),
       }
     );
-    // const json = await response.json();
-    // console.log("json:", json);
     const json = await response.json();
-    console.log("delete json:", json);
+    setLoading(false);
     fetchAllNotes();
   };
 
   const handleComplete = async (id, isComplete) => {
+    setLoading(true);
     const putData = {
       id: id,
       isComplete: !isComplete,
@@ -137,12 +141,14 @@ const Home = () => {
       }
     );
     const json = await response.json();
+    setLoading(false);
     setMyNote(json.data);
     fetchAllNotes();
   };
 
   useEffect(() => {
     const handlePublish = async (publicIdentifier) => {
+      setLoading(true);
       if (!publicIdentifier) return;
 
       const data = {
@@ -161,7 +167,7 @@ const Home = () => {
         }
       );
       const json = await response.json();
-      console.log("publish json:", json);
+      setLoading(false);
       setMyNote(json.data);
       fetchAllNotes();
     };
@@ -169,17 +175,16 @@ const Home = () => {
   }, [publicIdentifier, isPublic]);
 
   const handleSingleNoteClick = (note) => {
-    setSingleSelect(true);
     setTitle(note.title);
     setMyNote(note);
   };
 
   const handleAddNewNote = () => {
     saveNotesInDB("New Note...", false);
-    setSingleSelect(false);
   };
 
   const pinToTop = async (notePin) => {
+    setLoading(true);
     const putData = {
       id: notePin._id,
       pinNote: !notePin.pinNote,
@@ -196,6 +201,7 @@ const Home = () => {
       }
     );
     const json = await response.json();
+    setLoading(false);
     setMyNote(json.data);
     await fetchAllNotes();
     setPinNote(json.data);
@@ -233,14 +239,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (!singleSelect) {
-      const len = allNotes.length;
-      setTitle(allNotes[len - 1]?.title);
-      setMyNote(allNotes[len - 1]);
-    }
-  }, [allNotes]);
-
-  useEffect(() => {
     if (!token) {
       navigate("/login");
     } else {
@@ -248,9 +246,30 @@ const Home = () => {
     }
   }, []);
 
+  const handleDebounce = (value) => {
+    setEdit(true);
+    setTitle(value);
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    let tempTimer = setTimeout(() => {
+      handleUpdateNote(myNote?._id, value);
+    }, 500);
+    setTimer(tempTimer);
+  };
+
   return (
     <div className={styles.home} onClick={() => setIsMenuSelected(false)}>
       {settingOpen && <Setting closeMenu={() => setSettingOpen(false)} />}
+      {loading && (
+        <div className="lds-ring ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
       <div className={styles.header}>
         <div
           style={{
@@ -396,8 +415,8 @@ const Home = () => {
             value={title}
             spellCheck={false}
             onChange={(event) => {
-              setTitle(event.target.value);
-              saveNotesInDB(event.target.value, true);
+              const value = event.target.value;
+              handleDebounce(value);
             }}
           />
         </div>
