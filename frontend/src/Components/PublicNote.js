@@ -49,7 +49,7 @@ const PublicNote = () => {
               src="https://cdn-icons-png.flaticon.com/128/10335/10335740.png"
             />
             <span style={{ letterSpacing: "0.6px" }}>
-              Published with Quicknote
+              Published with Primenote
             </span>
           </div>
         </div>
@@ -80,7 +80,7 @@ const PublicNote = () => {
               src="https://cdn-icons-png.flaticon.com/128/10335/10335740.png"
             />
             <span style={{ letterSpacing: "0.6px", marginBottom: "2rem" }}>
-              Published with Quicknote
+              Published with Primenote
             </span>
           </div>
         </div>

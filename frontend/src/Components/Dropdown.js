@@ -53,7 +53,7 @@ const Dropdown = ({
           e.stopPropagation();
           if (myNote?.isPublic) {
             navigator.clipboard.writeText(
-              `https://quicknote-beta.vercel.app/viewNote/${myNote?.publicIdentifier}`
+              `https://primenote.vercel.app/viewNote/${myNote?.publicIdentifier}`
               // `http://localhost:3000/viewNote/${myNote?.publicIdentifier}`
             );
           }
