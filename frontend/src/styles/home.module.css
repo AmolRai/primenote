@@ -8,7 +8,7 @@
 .homeLeft {
   flex: 1;
   border-right: 0.1px solid #5e5e5ea2;
-  max-height: 100vh;
+  max-height: 94vh;
   overflow: auto;
 }
 
