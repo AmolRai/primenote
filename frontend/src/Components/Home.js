@@ -74,7 +74,7 @@ const Home = () => {
         setLoading(true);
       }
       const response = await fetch(
-        "https://notes-app-indol-kappa.vercel.app/api/v1/notes/allNotes",
+        "https://primenote.vercel.app/api/v1/notes/allNotes",
         // "http://localhost:4000/api/v1/notes/allNotes",
         {
           headers: {

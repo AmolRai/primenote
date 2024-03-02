@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 const corsOptions = {
-  origin: ["https://quicknote-beta.vercel.app", "http://localhost:3000"],
+  origin: ["https://primenote.vercel.app", "http://localhost:3000"],
   credentials: true,
 };
 
