@@ -407,7 +407,6 @@ const Home = () => {
             );
           })}
         </div>
-
         <div className={styles.homeRight}>
           <textarea
             type="text"
@@ -418,6 +417,9 @@ const Home = () => {
               handleDebounce(value);
             }}
           />
+          <div style={{ position: "absolute", bottom: "1rem", right: "30rem" }}>
+            <p style={{ color: "#ffffffc4" }}>Built ❤️ by Amol Rai</p>
+          </div>
         </div>
       </div>
     </div>
