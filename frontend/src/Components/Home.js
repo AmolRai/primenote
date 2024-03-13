@@ -418,7 +418,7 @@ const Home = () => {
             }}
           />
           <div style={{ position: "absolute", bottom: "1rem", right: "30rem" }}>
-            <p style={{ color: "#ffffffc4" }}>Built ❤️ by Amol Rai</p>
+            <p style={{ color: "#ffffffc4" }}>Made with ❤️ by Amol Rai</p>
           </div>
         </div>
       </div>
