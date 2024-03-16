@@ -407,6 +407,7 @@ const Home = () => {
             );
           })}
         </div>
+
         <div className={styles.homeRight}>
           <textarea
             type="text"
@@ -418,7 +419,17 @@ const Home = () => {
             }}
           />
           <div style={{ position: "absolute", bottom: "1rem", right: "30rem" }}>
-            <p style={{ color: "#ffffffc4" }}>Made with ❤️ by Amol Rai</p>
+            <p
+              style={{
+                color: "#ffffffc4",
+                cursor: "pointer",
+              }}
+              onClick={() =>
+                window.open("https://www.linkedin.com/in/amolrai07/", "_")
+              }
+            >
+              Made with ❤️ by Amol Rai
+            </p>
           </div>
         </div>
       </div>
