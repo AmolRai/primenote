@@ -13,6 +13,7 @@ const Dropdown = ({
   return (
     <div className={styles.dropDown}>
       <span
+        className={styles.pin}
         onClick={(e) => {
           e.stopPropagation();
           pinToTop(myNote);
@@ -21,6 +22,7 @@ const Dropdown = ({
         {myNote.pinNote ? "Unpin" : "Pin to top"}
       </span>
       <span
+        className={styles.done}
         onClick={(e) => {
           e.stopPropagation();
           handleComplete(myNote?._id, myNote?.isComplete);
@@ -30,6 +32,7 @@ const Dropdown = ({
       </span>
 
       <div
+        className={styles.publish}
         style={{
           display: "flex",
           alignItems: "center",
@@ -48,6 +51,7 @@ const Dropdown = ({
       </div>
 
       <span
+        className={styles.copyLink}
         style={{ color: myNote?.isPublic ? "white" : "#646970" }}
         onClick={(e) => {
           e.stopPropagation();
@@ -63,6 +67,7 @@ const Dropdown = ({
       </span>
 
       <span
+        className={styles.delete}
         style={{
           color: "#ff8085",
           borderTop: "0.1px solid #5e5e5ea2",

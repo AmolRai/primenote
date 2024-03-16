@@ -132,8 +132,8 @@ const Home = () => {
       isComplete: !isComplete,
     };
     const response = await fetch(
-      "https://primenote-api.vercel.app/api/v1/notes/updateCompleteNote",
-      // "http://localhost:4000/api/v1/notes/updateCompleteNote",
+      "https://primenote-api.vercel.app/api/v1/notes/updateNote",
+      // "http://localhost:4000/api/v1/notes/updateNote",
       {
         method: "PUT",
         headers: {
@@ -276,7 +276,6 @@ const Home = () => {
       }
     );
     const json = await response.json();
-    console.log("json:", json);
     setTags(json.data.tag);
   };
 
@@ -284,8 +283,8 @@ const Home = () => {
     const filteredTag = tags.filter((tag) => tag !== deleteTag);
     setTags(filteredTag);
     await fetch(
-      "https://primenote-api.vercel.app/api/v1/notes/updateNote",
-      // "http://localhost:4000/api/v1/notes/updateNote",
+      // "https://primenote-api.vercel.app/api/v1/notes/updateNote",
+      "http://localhost:4000/api/v1/notes/updateNote",
       {
         method: "PUT",
         headers: {
@@ -457,27 +456,18 @@ const Home = () => {
             }}
           />
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              marginLeft: "1rem",
-            }}
-          >
+          <div className={styles.tagContainer}>
             {tags?.map((tag, index) => {
               return (
-                tag && (
-                  <div key={index} className={styles.tags}>
-                    <p>{tag}</p>
-                    <img
-                      className={styles.crossImg}
-                      onClick={() => handleTagDelete(tag)}
-                      src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png"
-                      width={17}
-                    />
-                  </div>
-                )
+                <div key={index} className={styles.tags}>
+                  <p>{tag}</p>
+                  <img
+                    className={styles.crossImg}
+                    onClick={() => handleTagDelete(tag)}
+                    src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png"
+                    width={17}
+                  />
+                </div>
               );
             })}
             <div>
@@ -494,8 +484,9 @@ const Home = () => {
                 }}
                 onChange={(e) => setTagValue(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleTag(tagValue);
+                  console.log(e.key);
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleTag(tagValue.trim());
                     setTagValue("");
                   }
                 }}
@@ -503,7 +494,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* <div style={{ position: "absolute", bottom: "1rem", right: "30rem" }}>
+          <div style={{ position: "absolute", bottom: "1rem", left: "5rem" }}>
             <p
               style={{
                 color: "#ffffffc4",
@@ -515,7 +506,7 @@ const Home = () => {
             >
               Made with ❤️ by Amol Rai
             </p>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

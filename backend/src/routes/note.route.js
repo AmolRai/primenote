@@ -4,7 +4,6 @@ import {
   deleteNote,
   fetchAllNotes,
   publicNote,
-  updateCompleteNote,
   updateNote,
   viewNote,
 } from "../controllers/note.controller.js";
@@ -17,8 +16,6 @@ router.route("/addNote").post(verifyJWT, addNote);
 router.route("/allNotes").get(verifyJWT, fetchAllNotes);
 
 router.route("/updateNote").put(updateNote);
-
-router.route("/updateCompleteNote").put(updateCompleteNote);
 
 router.route("/deleteNote").delete(verifyJWT, deleteNote);
 

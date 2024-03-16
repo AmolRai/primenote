@@ -13,8 +13,27 @@
 }
 
 .dropDown span {
-  padding: 5px;
+  padding: 6px;
   padding-left: 1rem;
   color: white;
   font-size: 14.5px;
+}
+
+.pin:hover {
+  background-color: #2c3338;
+}
+
+.delete:hover {
+  background-color: #2c3338;
+}
+
+.done:hover {
+  background-color: #2c3338;
+}
+
+.publish:hover {
+  background-color: #2c3338;
+}
+.copyLink:hover {
+  background-color: #2c3338;
 }

@@ -53,8 +53,16 @@
   bottom: 1rem;
   filter: invert(1);
   cursor: pointer;
+  opacity: 0.8;
 }
 
 .tags:hover .crossImg {
   display: block;
+}
+
+.tagContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 1rem;
 }

@@ -59,10 +59,10 @@ const fetchAllNotes = async (req, res) => {
 };
 
 const updateNote = async (req, res) => {
-  const { id, title, pinNote, tagValue, deleteTag } = req.body;
+  const { id, title, pinNote, tagValue, deleteTag, isComplete } = req.body;
 
   try {
-    let updateData = { title, pinNote };
+    let updateData = { title, pinNote, isComplete };
 
     if (tagValue) {
       updateData.$addToSet = { tag: tagValue };
@@ -87,32 +87,6 @@ const updateNote = async (req, res) => {
     }
 
     return res.status(500).json(new ApiError(500, "Internal Server Error"));
-  }
-};
-
-const updateCompleteNote = async (req, res) => {
-  try {
-    const { id, isComplete } = req.body;
-
-    const noteToUpdate = await Note.findByIdAndUpdate(
-      id,
-      {
-        $set: {
-          isComplete: isComplete,
-        },
-      },
-      { new: true }
-    );
-
-    if (!noteToUpdate) {
-      throw new ApiError(400, "Note not found");
-    }
-
-    return res
-      .status(200)
-      .json(new ApiResponse(200, noteToUpdate, "Note updated successfully"));
-  } catch (err) {
-    console.log("UpdateCompleteNote Error:", err.message);
   }
 };
 
@@ -148,7 +122,9 @@ const deleteNote = async (req, res) => {
 const viewNote = async (req, res) => {
   try {
     const { publicIdentifier } = req.params;
+
     const note = await Note.findOne({ publicIdentifier });
+
     if (!note) {
       throw new ApiError(400, "Bad Request");
     }
@@ -194,12 +170,4 @@ const publicNote = async (req, res) => {
   }
 };
 
-export {
-  addNote,
-  fetchAllNotes,
-  updateNote,
-  deleteNote,
-  updateCompleteNote,
-  viewNote,
-  publicNote,
-};
+export { addNote, fetchAllNotes, updateNote, deleteNote, viewNote, publicNote };
