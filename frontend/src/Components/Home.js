@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import styles from "../styles/home.module.css";
 import Dropdown from "./Dropdown";
 import Search from "./Search";
@@ -19,6 +19,8 @@ const Home = () => {
   const [timer, setTimer] = useState();
   const [loading, setLoading] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [tags, setTags] = useState([]);
+  const [tagValue, setTagValue] = useState("");
   const navigate = useNavigate();
   const token = useCustomCookie();
 
@@ -93,6 +95,7 @@ const Home = () => {
         const data = json.data;
         setMyNote(data[0]);
         setTitle(data[0].title);
+        setTags(data[0].tag);
       }
       setAllNotes(json.data);
       setFilterNotes(json.data);
@@ -176,6 +179,8 @@ const Home = () => {
   const handleSingleNoteClick = (note) => {
     setTitle(note.title);
     setMyNote(note);
+    console.log("note:", note);
+    setTags(note.tag);
   };
 
   const handleAddNewNote = () => {
@@ -256,6 +261,39 @@ const Home = () => {
       handleUpdateNote(myNote?._id, value);
     }, 300);
     setTimer(tempTimer);
+  };
+
+  const handleTag = async (tagValue) => {
+    const response = await fetch(
+      "https://primenote-api.vercel.app/api/v1/notes/updateNote",
+      // "http://localhost:4000/api/v1/notes/updateNote",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ tagValue, id: myNote._id }),
+      }
+    );
+    const json = await response.json();
+    console.log("json:", json);
+    setTags(json.data.tag);
+  };
+
+  const handleTagDelete = async (deleteTag) => {
+    const filteredTag = tags.filter((tag) => tag !== deleteTag);
+    setTags(filteredTag);
+    await fetch(
+      "https://primenote-api.vercel.app/api/v1/notes/updateNote",
+      // "http://localhost:4000/api/v1/notes/updateNote",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ deleteTag, id: myNote._id }),
+      }
+    );
   };
 
   return (
@@ -418,7 +456,54 @@ const Home = () => {
               handleDebounce(value);
             }}
           />
-          <div style={{ position: "absolute", bottom: "1rem", right: "30rem" }}>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              marginLeft: "1rem",
+            }}
+          >
+            {tags?.map((tag, index) => {
+              return (
+                tag && (
+                  <div key={index} className={styles.tags}>
+                    <p>{tag}</p>
+                    <img
+                      className={styles.crossImg}
+                      onClick={() => handleTagDelete(tag)}
+                      src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png"
+                      width={17}
+                    />
+                  </div>
+                )
+              );
+            })}
+            <div>
+              <input
+                placeholder="Add tag..."
+                value={tagValue}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: "10px",
+                  outline: "none",
+                  color: "white",
+                  fontSize: "1rem",
+                }}
+                onChange={(e) => setTagValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleTag(tagValue);
+                    setTagValue("");
+                  }
+                }}
+              />
+            </div>
+          </div>
+
+          {/* <div style={{ position: "absolute", bottom: "1rem", right: "30rem" }}>
             <p
               style={{
                 color: "#ffffffc4",
@@ -430,7 +515,7 @@ const Home = () => {
             >
               Made with ❤️ by Amol Rai
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

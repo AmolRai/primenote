@@ -59,19 +59,20 @@ const fetchAllNotes = async (req, res) => {
 };
 
 const updateNote = async (req, res) => {
-  const { id, title, pinNote } = req.body;
-  console.log("ID:", id);
+  const { id, title, pinNote, tagValue, deleteTag } = req.body;
+
   try {
-    const note = await Note.findByIdAndUpdate(
-      id,
-      {
-        $set: {
-          title: title,
-          pinNote: pinNote,
-        },
-      },
-      { new: true }
-    );
+    let updateData = { title, pinNote };
+
+    if (tagValue) {
+      updateData.$addToSet = { tag: tagValue };
+    }
+
+    if (deleteTag) {
+      updateData.$pull = { tag: deleteTag };
+    }
+
+    const note = await Note.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!note) {
       throw new ApiError(400, "Note not found");
