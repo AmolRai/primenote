@@ -5,6 +5,7 @@ import Dropdown from "./Dropdown";
 import Search from "./Search";
 import Setting from "./Setting";
 import useCustomCookie from "../utils/useCustomCookie";
+import NoteDetails from "./NoteDetails";
 
 const Home = () => {
   const [title, setTitle] = useState("");
@@ -20,6 +21,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [edit, setEdit] = useState(false);
   const [tags, setTags] = useState([]);
+  const [isNoteDetail, setIsNoteDetail] = useState(false);
   const [tagValue, setTagValue] = useState("");
   const navigate = useNavigate();
   const token = useCustomCookie();
@@ -359,8 +361,17 @@ const Home = () => {
               alignItems: "center",
               justifyContent: "end",
               marginRight: "1rem",
+              gap: "1rem",
             }}
           >
+            <img
+              style={{ filter: "invert(1)", opacity: "0.7" }}
+              onClick={() => {
+                setIsNoteDetail(!isNoteDetail);
+              }}
+              width={20}
+              src="https://cdn-icons-png.flaticon.com/128/3503/3503827.png"
+            />
             <img
               style={{ filter: "invert(1)", opacity: "0.7" }}
               onClick={(eve) => {
@@ -370,6 +381,13 @@ const Home = () => {
               width={20}
               src="https://cdn-icons-png.flaticon.com/128/570/570223.png"
             />
+
+            {isNoteDetail && (
+              <NoteDetails
+                myNote={myNote}
+                closeNoteDetail={() => setIsNoteDetail(false)}
+              />
+            )}
 
             {isMenuSelected && (
               <Dropdown
@@ -389,6 +407,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <div className={styles.notes}>
         <div className={styles.homeLeft}>
           <Search handleSearch={handleSearch} />
@@ -484,7 +503,6 @@ const Home = () => {
                 }}
                 onChange={(e) => setTagValue(e.target.value)}
                 onKeyDown={(e) => {
-                  console.log(e.key);
                   if (e.key === "Enter" || e.key === " ") {
                     handleTag(tagValue.trim());
                     setTagValue("");
